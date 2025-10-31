@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CryptoVigenère - Outil de Chiffrement Vigenère en Ligne | Cryptage Sécurisé</title>
+    
+    <!-- Meta Tags SEO Optimisés -->
+    <meta name="description" content="Outil gratuit de chiffrement Vigenère en ligne. Cryptage et décryptage sécurisé de vos messages avec l'algorithme historique Vigenère. Protégez vos communications facilement.">
+    <meta name="keywords" content="chiffrement vigenère, cryptage vigenère, décryptage vigenère, algorithme vigenère, chiffrement en ligne, outil cryptage gratuit, sécurité messages, cryptographie historique">
+    <meta name="author" content="CryptoVigenère">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+    <meta name="theme-color" content="#6366f1">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://cryptovigenere.com/">
+    <meta property="og:title" content="CryptoVigenère - Outil de Chiffrement Vigenère en Ligne">
+    <meta property="og:description" content="Chiffrez et déchiffrez vos messages gratuitement avec l'algorithme Vigenère. Outil de cryptage sécurisé et facile à utiliser.">
+    <meta property="og:image" content="https://cryptovigenere.com/static/og-image.png">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://cryptovigenere.com/">
+    <meta property="twitter:title" content="CryptoVigenère - Chiffrement Vigenère en Ligne">
+    <meta property="twitter:description" content="Outil gratuit de chiffrement et déchiffrement utilisant l'algorithme Vigenère historique.">
+    <meta property="twitter:image" content="https://cryptovigenere.com/static/twitter-image.png">
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://cryptovigenere.com/">
+
+    <!-- Favicon & Icons -->
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename='apple-touch-icon.png') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='favicon-32x32.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='favicon-16x16.png') }}">
+
+    <!-- Preload Resources -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" as="style">
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" as="style">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+
+    <!-- Schema.org structured data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "CryptoVigenère",
+        "description": "Outil en ligne gratuit de chiffrement et déchiffrement utilisant l'algorithme historique de Vigenère",
+        "url": "https://cryptovigenere.com",
+        "applicationCategory": "UtilityApplication",
+        "operatingSystem": "Any",
+        "permissions": "browser",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        },
+        "author": {
+            "@type": "Organization",
+            "name": "CryptoVigenère"
+        },
+        "audience": {
+            "@type": "Audience",
+            "audienceType": "Students, Developers, Security Enthusiasts"
+        }
+    }
+    </script>
+
+    <!-- Additional Schema for HowTo -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "HowTo",
+        "name": "Comment utiliser le chiffrement Vigenère",
+        "description": "Guide étape par étape pour chiffrer et déchiffrer des messages avec l'algorithme Vigenère",
+        "steps": [
+            {
+                "@type": "HowToStep",
+                "name": "Saisir le texte",
+                "text": "Entrez le texte que vous souhaitez chiffrer ou déchiffrer dans la zone de texte principale"
+            },
+            {
+                "@type": "HowToStep",
+                "name": "Choisir une clé",
+                "text": "Saisissez une clé de chiffrement sécurisée ou générez-en une automatiquement"
+            },
+            {
+                "@type": "HowToStep",
+                "name": "Chiffrer/Déchiffrer",
+                "text": "Cliquez sur le bouton Chiffrer ou Déchiffrer selon votre besoin"
+            }
+        ]
+    }
+    </script>
+</head>
+<body>
+    <!-- Animation de fond -->
+    <div class="background-animation">
+        <div class="floating-shapes">
+            <div class="shape shape-1"></div>
+            <div class="shape shape-2"></div>
+            <div class="shape shape-3"></div>
+            <div class="shape shape-4"></div>
+        </div>
+    </div>
+
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-lock" aria-hidden="true"></i>
+                    <h1>CryptoVigenère - Outil de Chiffrement en Ligne</h1>
+                </div>
+                <p class="tagline">Chiffrement sécurisé par algorithme Vigenère | Cryptage et Décryptage Gratuit</p>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- Section des statistiques -->
+        <section class="stats-section" aria-labelledby="stats-heading">
+            <h2 id="stats-heading" class="sr-only">Statistiques d'utilisation</h2>
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-shield-alt" aria-hidden="true"></i>
+                </div>
+                <div class="stat-content">
+                    <h3 id="encrypted-count">0</h3>
+                    <p>Textes Chiffrés</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-key" aria-hidden="true"></i>
+                </div>
+                <div class="stat-content">
+                    <h3 id="decrypted-count">0</h3>
+                    <p>Textes Déchiffrés</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-bolt" aria-hidden="true"></i>
+                </div>
+                <div class="stat-content">
+                    <h3 id="total-operations">0</h3>
+                    <p>Opérations Total</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section principale de l'application -->
+        <section class="app-section" aria-labelledby="app-heading">
+            <div class="section-header">
+                <h2 id="app-heading"><i class="fas fa-code" aria-hidden="true"></i> Zone de Chiffrement Vigenère</h2>
+                <div class="security-indicator" id="security-level">
+                    <span class="security-dot" aria-hidden="true"></span>
+                    Sécurité: Élevée
+                </div>
+            </div>
+
+            <div class="input-grid">
+                <div class="input-group">
+                    <label for="text-input">
+                        <i class="fas fa-font" aria-hidden="true"></i>
+                        Texte à traiter :
+                    </label>
+                    <textarea 
+                        id="text-input" 
+                        placeholder="Saisissez votre texte ici..." 
+                        aria-describedby="text-count"
+                    ></textarea>
+                    <div class="char-count">
+                        <span id="text-count">0</span> caractères
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label for="key-input">
+                        <i class="fas fa-key" aria-hidden="true"></i>
+                        Clé de chiffrement :
+                    </label>
+                    <div class="key-input-container">
+                        <input 
+                            type="text" 
+                            id="key-input" 
+                            placeholder="Entrez votre clé secrète..."
+                            aria-describedby="key-strength"
+                        >
+                        <button class="key-generator" id="generate-key" aria-label="Générer une clé aléatoire">
+                            <i class="fas fa-dice" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                    <div class="key-strength" id="key-strength">
+                        <div class="strength-bar">
+                            <div class="strength-fill" data-strength="0" aria-hidden="true"></div>
+                        </div>
+                        <span class="strength-text">Force de la clé: Faible</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="button-group">
+                <button id="encrypt-btn" class="btn btn-primary">
+                    <i class="fas fa-lock" aria-hidden="true"></i>
+                    <span>Chiffrer</span>
+                    <div class="btn-loading" aria-hidden="true"></div>
+                </button>
+                <button id="decrypt-btn" class="btn btn-secondary">
+                    <i class="fas fa-unlock" aria-hidden="true"></i>
+                    <span>Déchiffrer</span>
+                    <div class="btn-loading" aria-hidden="true"></div>
+                </button>
+                <button id="clear-btn" class="btn btn-outline">
+                    <i class="fas fa-broom" aria-hidden="true"></i>
+                    Tout Effacer
+                </button>
+            </div>
+
+            <div class="result-group">
+                <label for="result-output">
+                    <i class="fas fa-result" aria-hidden="true"></i>
+                    Résultat :
+                </label>
+                <div class="result-container">
+                    <textarea 
+                        id="result-output" 
+                        readonly 
+                        placeholder="Le résultat apparaîtra ici..."
+                        aria-describedby="result-time result-length"
+                    ></textarea>
+                    <button class="copy-btn" id="copy-result" title="Copier le résultat" aria-label="Copier le résultat">
+                        <i class="far fa-copy" aria-hidden="true"></i>
+                    </button>
+                </div>
+                <div class="result-meta">
+                    <span id="result-time"></span>
+                    <span id="result-length"></span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section de visualisation -->
+        <section class="visualization-section" aria-labelledby="viz-heading">
+            <h2 id="viz-heading"><i class="fas fa-chart-bar" aria-hidden="true"></i> Visualisation du Chiffrement Vigenère</h2>
+            <div class="visualization-container">
+                <div class="viz-step" id="viz-step1">
+                    <div class="viz-label">Texte Original</div>
+                    <div class="viz-text" id="viz-original" aria-live="polite">...</div>
+                </div>
+                <div class="viz-arrow">
+                    <i class="fas fa-arrow-down" aria-hidden="true"></i>
+                </div>
+                <div class="viz-step" id="viz-step2">
+                    <div class="viz-label">Clé Appliquée</div>
+                    <div class="viz-key" id="viz-key" aria-live="polite">...</div>
+                </div>
+                <div class="viz-arrow">
+                    <i class="fas fa-arrow-down" aria-hidden="true"></i>
+                </div>
+                <div class="viz-step" id="viz-step3">
+                    <div class="viz-label">Texte Chiffré</div>
+                    <div class="viz-text" id="viz-encrypted" aria-live="polite">...</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section éducative optimisée SEO -->
+        <section class="info-section" aria-labelledby="info-heading">
+            <h2 id="info-heading" class="sr-only">Informations sur le chiffrement Vigenère</h2>
+            <div class="info-tabs" role="tablist">
+                <button class="tab-btn active" data-tab="algorithm" role="tab" aria-selected="true" aria-controls="tab-algorithm">
+                    Algorithme Vigenère
+                </button>
+                <button class="tab-btn" data-tab="history" role="tab" aria-selected="false" aria-controls="tab-history">
+                    Histoire du Chiffrement
+                </button>
+                <button class="tab-btn" data-tab="security" role="tab" aria-selected="false" aria-controls="tab-security">
+                    Sécurité Cryptographique
+                </button>
+            </div>
+
+            <div class="tab-content active" id="tab-algorithm" role="tabpanel" aria-labelledby="algorithm-tab">
+                <h3><i class="fas fa-cogs" aria-hidden="true"></i> Comment fonctionne le Chiffrement Vigenère</h3>
+                <div class="algorithm-demo">
+                    <div class="demo-step">
+                        <h4>Étape 1: Préparation du Texte</h4>
+                        <p>Le texte et la clé sont convertis en majuscules, les caractères non-alphabétiques sont ignorés. Cette étape de normalisation est essentielle pour le chiffrement Vigenère.</p>
+                    </div>
+                    <div class="demo-step">
+                        <h4>Étape 2: Application de la Clé de Chiffrement</h4>
+                        <p>Chaque lettre du texte est décalée selon la valeur de la lettre correspondante dans la clé. Le chiffrement Vigenère utilise une méthode polyalphabétique, contrairement au chiffrement César simple.</p>
+                        <div class="formula">
+                            C = (P + K) mod 26
+                        </div>
+                        <p>Où C est le caractère chiffré, P le caractère original, et K la valeur de la clé.</p>
+                    </div>
+                    <div class="demo-step">
+                        <h4>Étape 3: Génération du Résultat</h4>
+                        <p>Le texte chiffré est généré en appliquant le décalage à chaque caractère. Pour déchiffrer, on utilise la formule inverse : P = (C - K) mod 26.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-content" id="tab-history" role="tabpanel" aria-labelledby="history-tab">
+                <h3><i class="fas fa-history" aria-hidden="true"></i> Histoire du Chiffre Vigenère</h3>
+                <p>Le <strong>chiffre de Vigenère</strong> a été développé au 16ème siècle et est considéré comme l'un des premiers chiffrements polyalphabétiques. Bien que son invention soit souvent attribuée à Blaise de Vigenère, des versions similaires existaient déjà. Cet algorithme de chiffrement a marqué l'histoire de la cryptographie.</p>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-year">1553</div>
+                        <div class="timeline-content">Première description par Giovan Battista Bellaso</div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-year">1586</div>
+                        <div class="timeline-content">Blaise de Vigenère publie son traité sur le chiffrement</div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-year">19ème siècle</div>
+                        <div class="timeline-content">Le chiffre est considéré comme "indéchiffrable"</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-content" id="tab-security" role="tabpanel" aria-labelledby="security-tab">
+                <h3><i class="fas fa-shield-alt" aria-hidden="true"></i> Niveau de Sécurité du Chiffrement Vigenère</h3>
+                <div class="security-metrics">
+                    <div class="metric">
+                        <h4>Résistance aux attaques</h4>
+                        <div class="metric-bar">
+                            <div class="metric-fill" style="width: 70%"></div>
+                        </div>
+                        <span>Modérée</span>
+                    </div>
+                    <div class="metric">
+                        <h4>Complexité algorithmique</h4>
+                        <div class="metric-bar">
+                            <div class="metric-fill" style="width: 85%"></div>
+                        </div>
+                        <span>Élevée</span>
+                    </div>
+                    <div class="metric">
+                        <h4>Utilisation moderne</h4>
+                        <div class="metric-bar">
+                            <div class="metric-fill" style="width: 30%"></div>
+                        </div>
+                        <span>Limitée</span>
+                    </div>
+                </div>
+                <div class="security-tips">
+                    <h4><i class="fas fa-lightbulb" aria-hidden="true"></i> Conseils de sécurité pour le chiffrement Vigenère</h4>
+                    <ul>
+                        <li>Utilisez une clé longue et complexe pour renforcer la sécurité</li>
+                        <li>Évitez les mots du dictionnaire comme clés de chiffrement</li>
+                        <li>Changez régulièrement vos clés cryptographiques</li>
+                        <li>Ne réutilisez pas les mêmes clés pour différents messages</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section de contenu SEO additionnel -->
+        <section class="seo-content-section">
+            <h2 class="sr-only">Informations complémentaires sur le chiffrement Vigenère</h2>
+            <div class="seo-grid">
+                <article class="seo-card">
+                    <h3>Pourquoi utiliser le chiffrement Vigenère ?</h3>
+                    <p>Le <strong>chiffrement Vigenère</strong> reste populaire pour son importance historique dans l'évolution de la cryptographie. Bien que dépassé par les standards modernes comme AES, il offre une excellente introduction aux concepts de chiffrement polyalphabétique.</p>
+                </article>
+                <article class="seo-card">
+                    <h3>Applications modernes du Vigenère</h3>
+                    <p>Aujourd'hui, le <strong>chiffrement Vigenère</strong> est principalement utilisé dans un contexte éducatif pour enseigner les bases de la cryptographie. Il aide à comprendre les principes fondamentaux de la sécurité informatique.</p>
+                </article>
+                <article class="seo-card">
+                    <h3>Limitations de sécurité</h3>
+                    <p>Le <strong>chiffrement Vigenère</strong> n'est plus considéré comme sécurisé pour les applications sensibles. Des méthodes modernes comme l'analyse de fréquence peuvent le casser, surtout avec des clés courtes.</p>
+                </article>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>CryptoVigenère</h4>
+                    <p>Outil éducatif de chiffrement utilisant l'algorithme historique de Vigenère. Cryptage et décryptage sécurisé en ligne.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Fonctionnalités</h4>
+                    <ul>
+                        <li>Chiffrement sécurisé Vigenère</li>
+                        <li>Déchiffrement rapide et précis</li>
+                        <li>Visualisation en temps réel</li>
+                        <li>Interface moderne et accessible</li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Statistiques</h4>
+                    <div class="footer-stats">
+                        <div class="footer-stat">
+                            <span id="footer-encrypted">0</span>
+                            <small>Chiffrements</small>
+                        </div>
+                        <div class="footer-stat">
+                            <span id="footer-decrypted">0</span>
+                            <small>Déchiffrements</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 CryptoVigenère - Développé avec Flask <i class="fas fa-heart" aria-hidden="true"></i> | Outil de chiffrement Vigenère en ligne</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Notification Toast -->
+    <div id="toast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-content">
+            <i class="toast-icon" aria-hidden="true"></i>
+            <span class="toast-message"></span>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+    
+    <!-- CSS pour le contenu SEO additionnel -->
+    <style>
+    .seo-content-section {
+        background: var(--bg-secondary);
+        border-radius: var(--border-radius-lg);
+        padding: 2.5rem;
+        margin-top: 2rem;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .seo-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+    }
+    
+    .seo-card {
+        background: var(--bg-primary);
+        padding: 1.5rem;
+        border-radius: var(--border-radius);
+        border-left: 4px solid var(--primary-color);
+    }
+    
+    .seo-card h3 {
+        color: var(--primary-color);
+        margin-bottom: 1rem;
+        font-size: 1.1rem;
+    }
+    
+    .seo-card p {
+        color: var(--text-secondary);
+        line-height: 1.6;
+    }
+    
+    .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+    }
+    </style>
+</body>
+</html>
